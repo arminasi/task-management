@@ -3,8 +3,8 @@ import React from 'react'
 import { Link } from "react-router-dom"
 function Boards() {
   return (
-    <div>
-    <Link to="/boards/JS">Go to the single board</Link>
+    <div style={{border: "1px solid black", width: "180px", height: "40px", display:"flex", alignItems:"center", justifyContent:"center"}}>
+    <Link to="/boards/JS">Go to the tasks</Link>
   </div>
   )
 }

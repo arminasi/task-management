@@ -1,34 +1,59 @@
-import Column from "./Columns";
-import { useState } from "react"
-import Footer from "./Footer";
+import { useState } from "react";
+import ListCreator from "./ListCreator";
 
 function SingleBoard() {
+  const data = [
+    { list: <ListCreator />, title: "Todo" },
+    { list: <ListCreator />, title: "Doing" },
+    { list: <ListCreator />, title: "Done" },
+  ];
 
-  const [columns, setColumns] = useState([])
-  const [text, setText] = useState("")
-  
-  function addColumn(text) {
-    setColumns([
-      ...columns,
-      {
-        title: text,
-        id: Math.round(Math.random() * 1000),
-      }
-    ])
-  }
+  const [state, setState] = useState(data);
+  const [title, setTitle] = useState("");
 
-  function toDeleteColumn(item) {
-    setColumns(columns.filter((col) => col.id !== item.id))
+  function addList() {
+    if(title === "") {
+      return state
+    }
+    return setState([...state, { list: <ListCreator />, title: title }]);
   }
 
   return (
-    <div>
-      <Footer onAdd={addColumn}/>
-      <div className="App" style={{display: "flex", flexWrap:"wrap", justifyContent:"space-around", marginTop: "100px"}}>
-      {columns.map((item) => {
-        return <Column title={text} columns={item} toDeleteColumn={toDeleteColumn} key={Math.round(Math.random() * 1000)}/>;
+    <div style={{ display: "flex", flexWrap: "wrap", boxSizing: "border-box" }}>
+      <form
+        style={{ position: "absolute", boxSizing:"border-box", padding:"6px"}}
+        onSubmit={(e) => {
+          e.preventDefault();
+          addList();
+          setTitle("");
+        }}
+      >
+        <input
+          placeholder="Add column..."
+          type="text"
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        ></input>
+        <button>+</button>
+      </form>
+      {state.map((item) => {
+        return (
+          <div
+            style={{
+              alignItems: "center",
+              marginTop: "50px",
+              justifyContent: "space-around",
+              textAlign: "center",
+            }}
+            key={Math.random()}
+          >
+            <h2>{item.title}</h2>
+            {item.list}
+          </div>
+        );
       })}
-      </div>
     </div>
   );
 }

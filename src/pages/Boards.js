@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useState } from "react";
 
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 function Boards() {
+
+  const [board, setBoard] = useState([])
+
   return (
-    <div style={{border: "1px solid black", width: "180px", height: "40px", display:"flex", alignItems:"center", justifyContent:"center"}}>
-    <Link to="/boards/JS">Go to the tasks</Link>
-  </div>
-  )
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "300px",
+        margin: "6px"
+      }}
+    >
+      <Link to="/login">Go to the tasks</Link>
+      <button><Link to="/boards/JS">Create Board</Link></button>
+    </div>
+  );
 }
 
-export default Boards
+export default Boards;
